@@ -67,7 +67,30 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		int count = 0;
+//		for (char c : word.toCharArray()) {
+//			if (isVowel(c) && ) {
+//				count++;
+//			}
+//		}
+		if (isVowel(word.charAt(0))) {
+			count++;
+		}
+		
+		for (int i = 1; i < word.length(); i++) {
+			if ( isVowel(word.charAt(i)) && !isVowel(word.charAt(i-1) ) ) {
+				if (word.charAt(i) == 'e' && i == word.length() - 1 && count > 0) {
+					continue;
+				}
+				count++;
+			}
+		}
+		
+	    return count;
+	}
+	
+	private boolean isVowel(char c) {
+		  return "AEIOUYaeiouy".indexOf(c) != -1;
 	}
 	
 	/** A method for testing
@@ -132,7 +155,11 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return 0.0;
+		double fleschScore = 0;
+		
+		fleschScore = 206.835 - 1.015 * ((double) getNumWords() / (double) getNumSentences()) - 84.6 * ((double) getNumSyllables() / (double) getNumWords());
+		
+	    return fleschScore;
 	}
 	
 	
